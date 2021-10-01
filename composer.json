@@ -14,7 +14,9 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "overtrue/laravel-lang": "~4.0"
+        "mews/captcha": "~3.0",
+        "overtrue/laravel-lang": "~4.0",
+        "zbrettonye/geetest": "^1.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

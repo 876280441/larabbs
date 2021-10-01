@@ -42,7 +42,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * 对用户提交过来的数据进行验证
      *
      * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -53,17 +53,17 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'captcha' => ['required', 'captcha'],
+//            'captcha' => ['required', 'captcha'],
             'geetest_challenge' => ['geetest'],
         ], [
-            'captcha.required' => '验证码不得为空',
-            'captcha.captcha' => '请输入正确的验证码',
+//            'captcha.required' => '验证码不得为空',
+//            'captcha.captcha' => '请输入正确的验证码',
             'geetest' => config('geetest.server_fail_alert')
         ]);
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * 用户注册（录入数据库）
      *
      * @param array $data
      * @return \App\Models\User

@@ -35,8 +35,11 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
+        //所有控制器都需要登录才能访问
         $this->middleware('auth');
+        //路由签名  只有verify路由才需要 verify是发送邮箱
         $this->middleware('signed')->only('verify');
+        //频率限制 1分钟6次 resend是重新发送邮件
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 }

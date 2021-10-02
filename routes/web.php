@@ -36,3 +36,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
+Route::get('event/{id}/rsvp/{user}/{response}', function ($id, $user, $response) {
+    // 用户回复活动的响应
+})->name('event.rsvp')->middleware('signed');

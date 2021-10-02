@@ -26,10 +26,12 @@
             </div>
             <div class="form-group mb-4">
               <label for="" class="avatar-label">用户头像</label>
-              <input type="file" name="avatar" class="form-control-file">
+              <input type="file" name="avatar" class="form-control-file" onchange="showPreview(this)">
+              <img src="" class="thumbnail img-responsive" width="200" id="portrait" style="display: none" alt="">
+
               @if($user->avatar)
                 <br>
-                <img src="{{$user->avatar}}" class="thumbnail img-responsive" width="200" alt="">
+                <img src="{{$user->avatar}}" class="thumbnail img-responsive" width="200" alt=""/>
               @endif
             </div>
             <div class="form-group">
@@ -45,4 +47,19 @@
       </div>
     </div>
   </div>
+  {{--      上传图片时预览图片--}}
+  <script type="text/javascript">
+    function showPreview(source) {
+      var file = source.files[0];
+      if (window.FileReader) {
+        var fr = new FileReader();
+        var portrait = document.getElementById('portrait');
+        fr.onloadend = function (e) {
+          portrait.src = e.target.result;
+        };
+        fr.readAsDataURL(file);
+        portrait.style.display = 'block'
+      }
+    }
+  </script>
 @endsection

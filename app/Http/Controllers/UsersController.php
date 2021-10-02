@@ -41,15 +41,15 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
-        $data = $request->all();
+        $data = $request->except('avatar');
         if ($request->avatar) {
             $result = $uploader->save($request->avatar, 'avatars', $user->id);
-            if ($request){
+            if ($request) {
                 //将路径存入数据库
                 $data['avatar'] = $result['path'];
             }
         }
-        $user->save($data);
+        $user->update($data);
         return redirect()->route('users.show', $user->id)->with('success', '个人信息修改成功');
     }
 

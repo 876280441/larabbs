@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Handlers\ImageUploadHandler;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
+
     /**
      * 显示个人信息页面
      *
@@ -17,6 +24,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        //验证是否有权限访问
+        $this->authorize('view', $user);
         return view('users.show', compact('user'));
     }
 
@@ -28,6 +37,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
@@ -41,6 +51,7 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
+        $this->authorize('update', $user);
         $data = $request->except('avatar');
         if ($request->avatar) {
             $result = $uploader->save($request->avatar, 'avatars', $user->id, 416);

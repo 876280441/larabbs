@@ -43,7 +43,7 @@ class UsersController extends Controller
     {
         $data = $request->except('avatar');
         if ($request->avatar) {
-            $result = $uploader->save($request->avatar, 'avatars', $user->id);
+            $result = $uploader->save($request->avatar, 'avatars', $user->id, 416);
             if ($request) {
                 //将路径存入数据库
                 $data['avatar'] = $result['path'];

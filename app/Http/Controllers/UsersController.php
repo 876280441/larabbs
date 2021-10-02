@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Handlers\ImageUploadHandler;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -27,20 +28,29 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit',compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
      * 更新个人信息 -- 处理逻辑
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UserRequest $request
+     * @param ImageUploadHandler $uploader
      * @param \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
-        $user->update($request->all());
-        return redirect()->route('users.show',$user->id)->with('success','个人信息修改成功');
+        $data = $request->all();
+        if ($request->avatar) {
+            $result = $uploader->save($request->avatar, 'avatars', $user->id);
+            if ($request){
+                //将路径存入数据库
+                $data['avatar'] = $result['path'];
+            }
+        }
+        $user->save($data);
+        return redirect()->route('users.show', $user->id)->with('success', '个人信息修改成功');
     }
 
 }

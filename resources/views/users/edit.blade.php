@@ -10,7 +10,8 @@
           </h4>
         </div>
         <div class="card-body">
-          <form action="{{route('users.update',$user->id)}}" method="post" accept-charset="UTF-8">
+          <form action="{{route('users.update',$user->id)}}" method="post" accept-charset="UTF-8"
+                enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             @include('shared._eooro')
@@ -22,6 +23,14 @@
               <label for="email-field">邮箱</label>
               <input type="text" class="form-control" name="email" id="email-field"
                      value="{{old('email',$user->email)}}">
+            </div>
+            <div class="form-group mb-4">
+              <label for="" class="avatar-label">用户头像</label>
+              <input type="file" name="avatar" class="form-control-file">
+              @if($user->avatar)
+                <br>
+                <img src="{{$user->avatar}}" class="thumbnail img-responsive" width="200" alt="">
+              @endif
             </div>
             <div class="form-group">
               <label for="introduction-field">个人简介</label>

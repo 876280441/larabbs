@@ -26,7 +26,7 @@
             <div class="form-group">
               <label for="introduction-field">个人简介</label>
               <textarea type="text" class="form-control" name="introduction" id="introduction-field"
-                        value="{{old('introduction',$user->introduction)}}"></textarea>
+              >{{old('introduction',$user->introduction)}}</textarea>
             </div>
             <div class="well well-sm">
               <button type="submit" class="btn btn-primary">保存</button>

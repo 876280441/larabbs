@@ -11,12 +11,12 @@
           <h5>
             <strong>个人简介</strong>
           </h5>
-          <p>空</p>
+          <p>{{$user->introduction}}</p>
           <hr>
           <h5>
             <strong>注册于</strong>
           </h5>
-          <p>2021-10-02</p>
+          <p>{{$user->created_at->diffForHumans()}}</p>
         </div>
       </div>
     </div>

@@ -52,6 +52,18 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
+        #阿里云OSS配置
+        'oss' => [
+            'driver'        => 'oss',
+            'access_id'     => env('ALIYUN_ACCESS_ID'),
+            'access_key'    => env('ALIYUN_ACCESS_KEY'),
+            'bucket'        => env('ALIYUN_BUCKET'),
+            'endpoint'      => env('ALIYUN_ENDPOINT'),
+            'cdnDomain'     => env('ALIYUN_CDN_DOMAIN'),
+            'ssl'           => env('ALIYUN_SSL'),
+            'isCName'       => env('ALIYUN_IS_CNAME'),
+            'debug'         => env('ALIYUN_DEBUG')
+        ],
 
     ],
 

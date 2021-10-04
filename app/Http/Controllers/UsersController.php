@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Handlers\ImageUploadHandler;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {

@@ -27,3 +27,10 @@ function upload_image($path, $file, $drive = 'oss')
     //值如：https://test.oss-cn-hongkong.aliyuncs.com/avatar/8GdIcz1NaCZ.jpeg
     return $disk->url($path);
 }
+
+/*
+ * 获取当前选中栏目
+ */
+function category_nav_active($category_id){
+    return active_class((if_route('categories.show')&&if_route_param('category', $category_id)));
+}

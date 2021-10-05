@@ -12,19 +12,24 @@
         </div>
         <div class="media-body">
           <div class="media-heading mt-0 mb-1">
+{{--            标题--}}
             <a href="{{route('topics.show',[$topic->id])}}" title="{{$topic->title}}">
               {{$topic->title}}
             </a>
+{{--            浏览量--}}
             <a href="{{route('topics.show',[$topic->id])}}">
               <span class="badge badge-secondary badge-pill">{{$topic->reply_count}}</span>
             </a>
           </div>
           <small class="media-body media text-secondary">
-            <a title="{{$topic->category->name}}" href="#" class="text-secondary">
-              <i class="far fa-user"></i>
+{{--            分类--}}
+            <a title="{{$topic->category->name}}" href="{{route('categories.show',$topic->category_id)}}"
+               class="text-secondary">
+              <i class="far fa-folder"></i>
               {{$topic->category->name}}
             </a>
             <span> • </span>
+{{--            发布用户--}}
             <a title="{{$topic->category->name}}" href="{{route('users.show',[$topic->user_id])}}"
                class="text-secondary">
               <i class="far fa-user"></i>

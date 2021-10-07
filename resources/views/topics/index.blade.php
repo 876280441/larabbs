@@ -11,29 +11,31 @@
       @endif
       <div class="card">
         <div class="card-header bg-transparent">
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">最后回复</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">最新发布</a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-            {{--话题列表--}}
-            @include('topics._topic_list',['topics'=>$topics])
-            {{--分页--}}
-            <div class="mt-5">
-              {!! $topics->appends(\Illuminate\Support\Facades\Request::except('page'))->render() !!}
-            </div>
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a href="{{\Illuminate\Support\Facades\Request::url()}}?order=default"
+                 class="nav-link {{active_class(!if_query('order','recent'))}}">最后回复</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{\Illuminate\Support\Facades\Request::url()}}?order=recent"
+                 class="nav-link {{active_class(if_query('order','recent'))}}">最新发布</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          {{--话题列表--}}
+          @include('topics._topic_list',['topics'=>$topics])
+          {{--分页--}}
+          <div class="mt-5">
+            {!! $topics->appends(\Illuminate\Support\Facades\Request::except('page'))->render() !!}
           </div>
         </div>
       </div>
+    </div>
     <div class="col-lg-3 col-md-3 sidebar">
       @include('topics._sidebar')
     </div>
-    </div>
+  </div>
 
 
 @endsection

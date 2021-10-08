@@ -27,7 +27,8 @@ class UsersController extends Controller
     {
         //验证是否有权限访问
         $this->authorize('view', $user);
-        return view('users.show', compact('user'));
+        $topics = $user->topics()->recent()->paginate(8);
+        return view('users.show', compact('user', 'topics'));
     }
 
     /**

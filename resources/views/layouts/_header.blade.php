@@ -56,7 +56,7 @@
               <a href="{{route('users.edit',\Illuminate\Support\Facades\Auth::id())}}" class="dropdown-item">编辑资料</a>
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item" id="logout">
-                <form action="{{route('logout')}}" method="post">
+                <form action="{{route('logout')}}" method="post" onsubmit="return confirm('确定退出?');">
                   {{csrf_field()}}
                   <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
                 </form>

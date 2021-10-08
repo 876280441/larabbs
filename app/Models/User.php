@@ -59,4 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return $value;
     }
+    /*
+     * 用户与话题  一对多
+     */
+    public function topics(){
+        return $this->hasMany(Topic::class);
+    }
 }

@@ -53,5 +53,30 @@
       </div>
     </div>
   </div>
-
+@section('styles')
+  <link rel="stylesheet" href="{{asset('css/simditor.css')}}">
+@stop
+@section('scripts')
+  <script type="text/javascript" src="{{ asset('js/module.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
+  <script>
+    $(document).ready(function () {
+      var editor = new Simditor({
+        textarea: $('#editor'),
+        upload:{
+          url:'{{route('topics.upload_img')}}',//发送到的链接
+          params:{//表单提交参数
+            _token:'{{csrf_token()}}'//发送token
+          },
+          fileKey:'upload_file',//发送的图片的键名
+          connectionCount:3,//最大发送数
+          leaveConfirm:'文件上传中，关闭此页面将取消上传。'//关闭提示
+        },
+        pasteImage:true,//设定是否支持图片黏贴上传
+      });
+    });
+  </script>
+@stop
 @endsection

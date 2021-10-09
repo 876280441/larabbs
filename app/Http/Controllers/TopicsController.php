@@ -47,7 +47,8 @@ class TopicsController extends Controller
     public function edit(Topic $topic)
     {
         $this->authorize('update', $topic);
-        return view('topics.create_and_edit', compact('topic'));
+        $categories = Category::all();
+        return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
     public function update(TopicRequest $request, Topic $topic)
@@ -55,7 +56,7 @@ class TopicsController extends Controller
         $this->authorize('update', $topic);
         $topic->update($request->all());
 
-        return redirect()->route('topics.show', $topic->id)->with('message', 'Updated successfully.');
+        return redirect()->route('topics.show', $topic->id)->with('success', '更新成功');
     }
 
     public function destroy(Topic $topic)
@@ -78,14 +79,14 @@ class TopicsController extends Controller
             'file_path' => ''
         ];
         //判断有无上传文件
-        if ($file = $request->upload_file){
+        if ($file = $request->upload_file) {
             //保存图片到本地
-            $result = $uploader->save($file, 'topics', Auth::id(),1024);
+            $result = $uploader->save($file, 'topics', Auth::id(), 1024);
             //图片保存成功
-            if ($result){
-                $data['success']=true;
-                $data['msg']='上传成功';
-                $data['file_path']=$result['path'];
+            if ($result) {
+                $data['success'] = true;
+                $data['msg'] = '上传成功';
+                $data['file_path'] = $result['path'];
             }
         }
         return $data;

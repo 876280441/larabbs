@@ -8,7 +8,7 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'body', 'category_id','excerpt', 'slug'];
+    protected $fillable = ['title', 'body', 'category_id', 'excerpt', 'slug'];
 
     //与分类关联
     public function category()
@@ -52,5 +52,10 @@ class Topic extends Model
     public function scopeRecent($query)
     {
         return $query->orderBy('created_at', 'asc');
+    }
+
+    public function link($params = [])
+    {
+        return route('topics.show', array_merge([$this->id, $this->slug], $params));
     }
 }

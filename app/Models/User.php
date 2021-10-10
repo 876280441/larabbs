@@ -59,10 +59,20 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return $value;
     }
+
     /*
      * 用户与话题  一对多
      */
-    public function topics(){
+    public function topics()
+    {
         return $this->hasMany(Topic::class);
+    }
+
+    /*
+   * 使用策略验证是否为有权限用户
+   */
+    public function isAuthorOf($model)
+    {
+        return $model->user_id == $this->id;
     }
 }

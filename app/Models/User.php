@@ -75,4 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $model->user_id == $this->id;
     }
+    /*
+     * 与评论关联
+     * 一个用户可以有多条关联
+     */
+    public function replies(){
+        return $this->hasMany(Reply::class);
+    }
 }

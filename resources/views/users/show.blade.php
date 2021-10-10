@@ -29,17 +29,24 @@
         </div>
       </div>
       <hr>
+      {{--      用户发布的内容--}}
       <div class="card">
         <div class="card-body">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a href="#" class="nav-link active bg-transparent">Ta 的话题</a>
+              <a href="{{route('users.show',$user->id)}}}}"
+                 class="nav-link bg-transparent {{active_class(if_query('tab',null))}}">Ta 的话题</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">Ta 的回复</a>
+              <a href="{{route('users.show',[$user->id,'tab'=>'replies'])}}"
+                 class="nav-link bg-transparent {{active_class(if_query('tab','replies'))}}">Ta 的回复</a>
             </li>
           </ul>
-          @include('users._topics',['topics'=>$topics])
+          @if(!if_query('tab','replies'))
+            @include('users._topics',['topics'=>$topics])
+          @else
+            @include('users._replies',['replies'=>$user->replies()->with('topic')->recent()->paginate(5)])
+          @endif
         </div>
       </div>
     </div>

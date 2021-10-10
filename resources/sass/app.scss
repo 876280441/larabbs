@@ -10,10 +10,11 @@
 //话题详情样式
 @import "_topic_body";
 
-.topics-show-page{
-  .card{
+.topics-show-page {
+  .card {
     padding: 15px;
-    h1{
+
+    h1 {
       margin: 0.4em auto 0.6em;
       font-size: 28px;
       line-height: 38px;
@@ -81,10 +82,10 @@ body {
   }
 }
 
-  /* Topic Index Page */
-.topics-index-page,.categories-show-page {
+/* Topic Index Page */
+.topics-index-page, .categories-show-page {
   .topic-list {
-    .nav>li>a {
+    .nav > li > a {
       position: relative;
       display: block;
       padding: 5px 14px;
@@ -116,9 +117,23 @@ body {
     }
   }
 }
+
 #app > div.container {
   margin-bottom: 100px;
 }
-.simditor-body img{
+
+.simditor-body img {
   max-width: 100%;
+}
+
+/* 回复列表 */
+.topic-reply {
+  a {
+    color: inherit;
+  }
+
+  .meta {
+    font-size: .9em;
+    color: #b3b3b3;
+  }
 }

@@ -43,7 +43,7 @@ class Topic extends Model
      */
     public function scopeRecentReplied($query)
     {
-        return $query->orderBy('updated_at', 'desc');
+        return $query->orderBy('updated_at', 'asc');
     }
 
     /*
@@ -51,18 +51,20 @@ class Topic extends Model
      */
     public function scopeRecent($query)
     {
-        return $query->orderBy('created_at', 'asc');
+        return $query->orderBy('created_at', 'desc');
     }
 
     public function link($params = [])
     {
         return route('topics.show', array_merge([$this->id, $this->slug], $params));
     }
+
     /*
      * 与评论关联
      * 一个文章有多条评论
      */
-    public function replies(){
+    public function replies()
+    {
         return $this->hasMany(Reply::class);
     }
 }

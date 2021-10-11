@@ -6,16 +6,32 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 
 //继承发送邮箱接口类
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory;
 
     //引入邮箱验证类
     use MustVerifyEmailTrait;
+
+    use Notifiable;
+
+    /*
+     * 评论通知
+     */
+    public function topicNotify($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了！
+        if ($this->id == Auth::id()) {
+            return;
+        }
+        $this->increment('notification_count');
+        $this->notify($instance);
+    }
 
     /**
      * 可批量赋值
@@ -75,11 +91,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $model->user_id == $this->id;
     }
+
     /*
      * 与评论关联
      * 一个用户可以有多条关联
      */
-    public function replies(){
+    public function replies()
+    {
         return $this->hasMany(Reply::class);
     }
 }

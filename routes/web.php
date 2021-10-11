@@ -54,4 +54,4 @@ Route::post('upload_img', 'TopicsController@uploadImage')->name('topics.upload_i
 /*话题路由优化*/
 Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
 
-Route::resource('replies', 'RepliesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('replies', 'RepliesController', ['only' => ['store','destroy']]);

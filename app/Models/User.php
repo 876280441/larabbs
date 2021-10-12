@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use Spatie\Permission\Traits\HasRoles;
 
 //继承发送邮箱接口类
 class User extends Authenticatable implements MustVerifyEmail
@@ -19,6 +20,9 @@ class User extends Authenticatable implements MustVerifyEmail
     use MustVerifyEmailTrait;
 
     use Notifiable;
+
+    //获取到扩展包提供的所有权限和角色的操作方法
+    use HasRoles;
 
     /*
      * 评论通知

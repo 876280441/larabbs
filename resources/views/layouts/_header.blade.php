@@ -44,7 +44,7 @@
         @else
           <li class="nav-item">
             <a href="{{route('topics.create')}}" class="nav-link mt-1 mr-3 font-weight-bold">
-              <i class="fa fa-plus">+</i>
+              <i class="fa fa-plus"></i>
             </a>
           </li>
           <li class="nav-item dropdown">
@@ -57,6 +57,11 @@
               {{\Illuminate\Support\Facades\Auth::user()->name}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              @can('manage_contents')
+                <a href="{{url(config('administrator.uri'))}}" class="dropdown-item">
+                  <i class="fas fa-tachometer-alt mr-2"></i>
+                  管理中心</a>
+              @endcan
               <a href="{{route('users.show',\Illuminate\Support\Facades\Auth::id())}}" class="dropdown-item">个人中心</a>
               <a href="{{route('users.edit',\Illuminate\Support\Facades\Auth::id())}}" class="dropdown-item">编辑资料</a>
               <div class="dropdown-divider"></div>

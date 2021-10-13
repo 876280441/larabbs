@@ -17,6 +17,9 @@
   <div class="container">
     @include('shared._messages')
     @yield('content')
+    @if(app()->isLocal())
+      @include('sudosu::user-selector')
+    @endif
   </div>
   @include('layouts._footer')
 </div>

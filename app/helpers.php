@@ -31,14 +31,51 @@ function upload_image($path, $file, $drive = 'oss')
 /*
  * 获取当前选中栏目
  */
-function category_nav_active($category_id){
-    return active_class((if_route('categories.show')&&if_route_param('category', $category_id)));
+function category_nav_active($category_id)
+{
+    return active_class((if_route('categories.show') && if_route_param('category', $category_id)));
 }
 
 /*
  * 过滤文章的内容
  */
-function make_excerpt($value,$length = 200){
+function make_excerpt($value, $length = 200)
+{
     $excerpt = trim(preg_replace('/\r\n|\r|\n+/', ' ', strip_tags($value)));
-    return \Illuminate\Support\Str::limit($excerpt,$length);
+    return \Illuminate\Support\Str::limit($excerpt, $length);
 }
+
+/*
+ * 连接后台模型
+ */
+function model_admin_link($title, $model)
+{
+    return model_link($title, $model, 'admin');
+}
+
+function model_link($title, $model, $prefix = '')
+{
+    // 获取数据模型的复数蛇形命名
+    $model_name = model_plural_name($model);
+    //初始化前缀
+    $prefix = $prefix ? "/$prefix/" : "/";
+    //使用站点URL拼接全量URL
+    $url = config('app.url') . $prefix . $model->name . '/' . $model->id;
+    //拼接HTML A 标签 并返回
+    return '<a href="' . $url . '" target="_blank">' . $title . '</a>';
+}
+
+function model_plural_name($model)
+{
+    // 从实体中获取完整类名，例如：App\Models\User
+    $full_class_name = get_class($model);
+    // 获取基础类名，例如：传参 `App\Models\User` 会得到 `User`
+    $class_name = class_basename($full_class_name);
+    //蛇形命名，例如：传参 `User`  会得到 `user`, `FooBar` 会得到 `foo_bar`
+    $snake_case_name = \Illuminate\Support\Str::snake($class_name);
+    // 获取子串的复数形式，例如：传参 `user` 会得到 `users`
+    return \Illuminate\Support\Str::plural($snake_case_name);
+
+}
+
+

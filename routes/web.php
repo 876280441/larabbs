@@ -54,4 +54,7 @@ Route::post('upload_img', 'TopicsController@uploadImage')->name('topics.upload_i
 /*话题路由优化*/
 Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
 
-Route::resource('replies', 'RepliesController', ['only' => ['store','destroy']]);
+Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+/*登录后台无权限提醒页面*/
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');

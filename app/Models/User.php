@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ActiveUserHelper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Psy\Util\Str;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Traits;
 
 //继承发送邮箱接口类
 class User extends Authenticatable implements MustVerifyEmail
@@ -24,6 +26,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     //获取到扩展包提供的所有权限和角色的操作方法
     use HasRoles;
+
+    //引入获取获取用户Traits
+    use ActiveUserHelper;
 
     /*
      * 评论通知
@@ -125,7 +130,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setAvatarAttribute($path)
     {
         // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
-        if (!   \Illuminate\Support\Str::startsWith($path, 'http')) {
+        if (!\Illuminate\Support\Str::startsWith($path, 'http')) {
             // 拼接完整的 URL
             $path = config('app.url') . "/uploads/images/avatars/$path";
         }

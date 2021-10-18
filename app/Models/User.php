@@ -13,6 +13,7 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Psy\Util\Str;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits;
+use App\Models\Traits\LastActivedAtHelper;
 
 //继承发送邮箱接口类
 class User extends Authenticatable implements MustVerifyEmail
@@ -29,6 +30,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     //引入获取获取用户Traits
     use ActiveUserHelper;
+
+    //引入记得用户最后登录时间
+    use LastActivedAtHelper;
 
     /*
      * 评论通知

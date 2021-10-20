@@ -32,7 +32,14 @@ return [
     //百度翻译配置
     'baidu_translate' => [
         'appid' => env('BAIDU_TRANSLATE_APPID'),
-        'key'   => env('BAIDU_TRANSLATE_KEY'),
+        'key' => env('BAIDU_TRANSLATE_KEY'),
+    ],
+    //github登录配置
+    #需要什么加什么这个扩展包支持好多家的登陆
+    'github' => [
+        'client_id' => 'your-app-id',
+        'client_secret' => 'your-app-secret',
+        'redirect' => 'http://localhost/socialite/callback.php',#登陆成功后要跳转的地址
     ],
 
 ];

@@ -47,6 +47,14 @@
               <i class="fa fa-plus"></i>
             </a>
           </li>
+          <li class="nav-item notification-badge">
+            <a
+              class="nav-link mr-3 badge badge-pill badge-{{ \Illuminate\Support\Facades\Auth::user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white"
+              href="{{route('notifications.index')}}">
+              {{ \Illuminate\Support\Facades\Auth::user()->notification_count }}
+            </a>
+          </li>
+
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle"
                id="navbarDropdown" role="button" data-toggle="dropdown"

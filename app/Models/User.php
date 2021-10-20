@@ -140,4 +140,13 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         $this->attributes['avatar'] = $path;
     }
+    /*
+     * 清除未读消息
+     */
+    public function markAsRead(){
+        //将未读信息数量清空
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
+    }
 }

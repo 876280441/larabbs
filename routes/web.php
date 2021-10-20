@@ -16,7 +16,7 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\PagesController::class, 'root'])->name('root');
+Route::get('/', [\App\Http\Controllers\TopicsController::class, 'index'])->name('root');
 
 //Auth::routes();身份验证的集合路由
 // 用户身份验证相关的路由
@@ -58,3 +58,6 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]
 
 /*登录后台无权限提醒页面*/
 Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
+
+/*查看站内信息*/
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);

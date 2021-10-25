@@ -31,6 +31,21 @@
           <a href="{{route('categories.show',4)}}" class="nav-link">公告</a>
         </li>
       </ul>
+      <ul class="navbar-nav align-items-center lf-3">
+        <form action="{{route('root')}}" method="get" class="form-inline my-2 my-lg-0 ml-3">
+          <input type="search" value="{{request()->query('keyword')}}" name="keyword"
+                 class="form-control form-control-sm" placeholder="搜索" aria-label="Search">
+          <select name="category_id" class="form-control-sm ml-2" id="exampleFormControlSelect1">
+            <option value="0">请选择分类</option>
+            {{--从自定义函数获取分类--}}
+            <option value="1" {{request()->query('category_id')==1?'selected':''}}>分享</option>
+            <option value="2" {{request()->query('category_id')==2?'selected':''}}>教程</option>
+            <option value="3" {{request()->query('category_id')==3?'selected':''}}>问答</option>
+            <option value="4" {{request()->query('category_id')==4?'selected':''}}>公告</option>
+          </select>
+          <button class="btn btn-sm btn-outline-success ml-2 px-4" type="submit">搜索</button>
+        </form>
+      </ul>
       {{--      右导航--}}
       <ul class="navbar-nav navbar-right">
         {{--        判断是否已登录--}}

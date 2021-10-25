@@ -76,6 +76,18 @@
               </div>
             </form>
           </div>
+          <div class="card-body">
+            <div class="shadow-sm text-center float-right bl-4 pl-3"
+                 style="width: 40px;height: 40px">
+              <a href="#">
+                <img width="40px" height="40px" src="https://z3.ax1x.com/2021/10/21/5rRJTP.png" alt="">
+              </a>
+            </div>
+
+            <div class="shadow-sm text-center float-right" style="width: 40px;height: 40px">
+              <img width="40px" height="40px" src="https://z3.ax1x.com/2021/10/21/5rRJTP.png" alt="">
+            </div>
+          </div>
         </div>
       </div>
     </div>

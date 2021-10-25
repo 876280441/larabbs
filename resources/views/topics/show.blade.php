@@ -32,6 +32,8 @@
             . 评论数:
             <i class="far far-comment"></i>
             {{$topic->reply_count}}
+            . 阅读数:
+            {{$topic->visits()->count()}}
           </div>
           <div class="topic-body mt-4 mb-4">
             {!!$topic->body!!}

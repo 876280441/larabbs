@@ -21,14 +21,30 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-    public function index(Request $request, Topic $topic, User $user,Link $link)
+    public function index(Request $request, Topic $topic, User $user, Link $link)
     {
-        $topics = $topic->withOrder($request->order)->with('user', 'category')->paginate(10);
+        //搜索关键字
+        $keyword = $request->query('keyword');
+        //获取分类id
+        $category_id = $request->query('category_id');
+        //查询博客数据
+        //如果这个关键字为空，就不进行闭包操作，直接查询数据
+        //when()就是如果变量值存在，就执行里面的闭包操作，如果不存在就会跳过闭包操作
+//        $topics = $topic->withOrder($request->order)->with('user', 'category')->paginate(10);
+        $topics = Topic::when($keyword, function ($query) use ($keyword) {
+            //将一个闭包套在组里面，不会影响全局的SQL
+            $query->where('title', 'like', "%{$keyword}%")
+                ->orWhere('body', 'like', "%{$keyword}%");
+        })->when($category_id, function ($query) use ($category_id) {
+            $query->where('category_id', '=', $category_id);
+        })->withOrder($request->order)
+            ->with('user', 'category')
+            ->paginate(10);
         /*获取活跃用户数据*/
         $active_users = $user->getActiveUsers();
         /*获取首页推荐链接*/
         $links = $link->getAllCached();
-        return view('topics.index', compact('topics','active_users','links'));
+        return view('topics.index', compact('topics', 'active_users', 'links'));
     }
 
     public function show(Request $request, Topic $topic)
@@ -37,6 +53,7 @@ class TopicsController extends Controller
         if (!empty($topic->slug) && $topic->slug != $request->slug) {
             return redirect($topic->link(), 301);
         }
+        $topic->visits()->increment();
         return view('topics.show', compact('topic'));
     }
 
